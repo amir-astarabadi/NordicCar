@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\DBRepository\Concretes\Product\ProductRepository;
-use App\DBRepository\Concretes\Product\ProductDto;
-use App\Http\Controllers\Admin\ProductController;
-use App\DBRepository\Contracts\CRUDInterface;
+use App\Models\Product;
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->bind(User::class, fn() => User::find(request()->route('customer')));
+        $this->app->bind(Product::class, fn() => User::find(request()->route('product')));
     }
 }
