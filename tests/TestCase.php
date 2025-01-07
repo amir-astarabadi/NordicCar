@@ -13,9 +13,17 @@ abstract class TestCase extends BaseTestCase
 
     protected ?User $admin = null;
 
+    protected ?User $customer = null;
+
     protected function loginAsAdmin()
     {
         $this->admin = User::factory()->create();
         Sanctum::actingAs($this->admin, ['view-dashboard', 'manage-resources']);
+    }
+
+    protected function loginAsCustomer()
+    {
+        $this->customer = User::factory()->create();
+        Sanctum::actingAs($this->customer, ['view-dashboard']);
     }
 }

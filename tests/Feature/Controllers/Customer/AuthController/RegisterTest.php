@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Controllers\Customer\ProductController;
 
-use App\Models\Product;
-use App\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Support\Arr;
+use App\Models\User;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
