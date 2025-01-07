@@ -19,4 +19,13 @@ abstract class ModelDto
         
         $this->{$name} = $value;
     }
+
+    public function __get($name)
+    {
+        if (!property_exists($this, $name)) {
+            throw new Exception('property mismatch. ' . get_class($this) . ' - ' . $name);
+        }
+        
+        return $this->{$name};
+    }
 }

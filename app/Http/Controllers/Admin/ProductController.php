@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DBRepository\Concretes\Product\ProductRepository;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
+use App\Http\Resources\Product\ProductResourceCollection;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
+use App\Http\Requests\Admin\Product\IndexProductRequest;
 use App\Http\Resources\Product\ProductResource;
-use App\DBRepository\Contracts\CRUDInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function __construct(private CRUDInterface $productRepository){}
+    public function __construct(private ProductRepository $productRepository){}
 
-    public function index()
+    public function index(IndexProductRequest $request)
     {
-        //
+        $searchDto = $request->getDto();
+
+        $products = $this->productRepository->paginate($searchDto->page, $searchDto->perpage);
+
+        return ProductResourceCollection::make($products);
     }
 
     public function store(StoreProductRequest $request)

@@ -23,8 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->bind(ProductDto::class, ProductDto::class);
-
-        $this->app->when(ProductController::class)->needs(CRUDInterface::class)->give(ProductRepository::class);
     }
 }

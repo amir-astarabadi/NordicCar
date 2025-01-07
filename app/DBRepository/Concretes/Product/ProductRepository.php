@@ -2,12 +2,14 @@
 
 namespace App\DBRepository\Concretes\Product;
 
+use App\DBRepository\Contracts\PaginateInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\DBRepository\Contracts\CRUDInterface;
 use App\DBRepository\Contracts\ModelDto;
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
-class ProductRepository implements CRUDInterface
+class ProductRepository implements CRUDInterface, PaginateInterface
 {
     public function create(ModelDto $dto): Model
     {
@@ -33,5 +35,10 @@ class ProductRepository implements CRUDInterface
     public function delete(Model $product): bool
     {
         return $product->delete();
+    }
+
+    public function paginate(int $page = 1, int $perpage = 20): LengthAwarePaginator
+    {
+        return Product::query()->paginate(page: $page, perPage: $perpage);
     }
 }

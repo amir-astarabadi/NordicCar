@@ -17,8 +17,6 @@ class StoreProductTest extends TestCase
  
     public function test_admin_can_store_product(): void
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->postJson(route('api.admin.products.store'), $this->requestData);
 
         $response->assertCreated();
