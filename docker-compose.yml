@@ -1,0 +1,80 @@
+services:
+    nginx:
+        build:
+            context: "./docker/nginx"
+            dockerfile: Dockerfile
+        container_name: nordic_nginx
+        ports:
+            - ${NGINX_PORT:-8000}:80
+        volumes:
+            - .:/var/www/html
+        networks:
+            - nordic_network
+        depends_on:
+            - php
+
+    php:
+        build:
+            context: "./docker/php"
+            dockerfile: Dockerfile
+        container_name: nordic_php
+        volumes:
+            - .:/var/www/html
+        networks:
+            - nordic_network
+        environment:
+            PHP_XDEBUG_MODE: ${PHP_XDEBUG_MODE:-debug,develop}
+            PHP_XDEBUG_AUTOSTART: ${PHP_XDEBUG_AUTOSTART:-yes}
+            PHP_XDEBUG_HOST: host.docker.internal
+            PHP_XDEBUG_PORT: 9003
+            PHP_XDEBUG_IDE_KEY: phpstorm
+            PHP_IDE_CONFIG: serverName=nordic
+            XDEBUG_CONFIG: ${PHP_XDEBUG_CONFIG:-}
+        extra_hosts:
+            - host.docker.internal:${DOCKER_HOST_GATEWAY:-host-gateway}
+        depends_on:
+            - mysql
+            - redis
+
+    mysql:
+        image: mysql:8.1.0
+        container_name: nordic_mysql
+        ports:
+            - ${MYSQL_PORT:-33061}:3306
+        volumes:
+            - nordic_mysql_data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=nordic
+        networks:
+            - nordic_network
+
+    phpmyadmin:
+        image: phpmyadmin:5.2.1
+        container_name: nordic_pma
+        ports:
+            - ${PMA_PORT:-8001}:80
+        environment:
+            PMA_HOST: nordic_mysql
+            MYSQL_ROOT_PASSWORD: password
+        networks:
+            - nordic_network
+        depends_on:
+            - mysql
+
+    redis:
+        image: redis:6.2.6-alpine
+        container_name: nordic_redis
+        ports:
+            - ${REDIS_PORT:-63791}:6379
+        volumes:
+            - nordic_redis_data:/usr/local/etc/redis
+        networks:
+            - nordic_network
+
+networks:
+    nordic_network:
+
+volumes:
+    nordic_mysql_data:
+    nordic_redis_data:
