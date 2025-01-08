@@ -31,7 +31,7 @@ class ShowCustomerOrdersTest extends TestCase
         $response->assertJson(function (AssertableJson $response) {
             return $response
                 ->count('data', $this->customer->orders()->count())
-                ->where('data.0.net_price', $this->order->net_price)
+                ->where('data.0.total_amount', $this->order->net_price)
                 ->etc();
         });
     }
