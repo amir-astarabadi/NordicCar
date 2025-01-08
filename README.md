@@ -16,7 +16,17 @@ Then with `system:deploy` command database will be populate with fake data in `l
 
 ## App Architect
 
+ - Repository layer exists to handle db queries
+ - Utilitie layer (service layer) exists for resusable actions
+ - I covered main features in Features test
+
 ## Concurrency Solution
 
+ - To solve race condition I used two slutions:
+    - Use DB transactions to commit all order placement changes like: tproduct deduc stock, store order items
+    - Lock each product for update when creating order items and deduc stock
+
 ## High-traffic Solution
+
+ - I dockerized project for horizental scale
 
