@@ -9,6 +9,7 @@ To run project on your local follow these steps:
 -  got to ` NordicCar ` directory
 -  run ``` docker compose up -d ```
 -  run ``` docker exec -it nordic_php sh ```
+-  run ``` composer install ```
 -  run ``` cp .env.example .env && php artisan key:generate``` (Just For First Time)
 -  run ``` php artisan system:deploy ```  
 
