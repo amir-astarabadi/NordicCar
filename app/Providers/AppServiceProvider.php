@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\DBRepository\Concretes\OrderItem\OrderItemRepository;
 use App\Models\Product;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;

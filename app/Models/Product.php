@@ -15,4 +15,14 @@ class Product extends Model
         'price',
         'stock',
     ];
+
+    public static function getPrimaryKeyName()
+    {
+        return (new static())->getKeyName();
+    }
+
+    public function sell(int $amount)
+    {
+        $this->update(['stock' => $this->stock - $amount]);
+    }
 }
