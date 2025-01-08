@@ -9,6 +9,7 @@ To run project on your local follow these steps:
 -  got to ` NordicCar ` directory
 -  run ``` docker compose up -d ```
 -  run ``` docker exec -it nordic_php sh ```
+-  run ``` cp .env.example .env && php artisan key:generate``` (Just For First Time)
 -  run ``` php artisan system:deploy ```  
 
 It will bring up: mysql, nginx, reids and php container as app dependencies on specific ports which are configurable from docker-compose.yml file.

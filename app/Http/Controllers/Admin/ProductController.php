@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DBRepository\Concretes\Product\ProductRepository;
-use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Http\Resources\Product\ProductResourceCollection;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\IndexProductRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -29,20 +27,5 @@ class ProductController extends Controller
         $product = $this->productRepository->create($request->getDto());
 
         return ProductResource::make($product);
-    }
-
-    public function show(Product $product)
-    {
-        //
-    }
-
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //
-    }
-
-    public function destroy(Product $product)
-    {
-        //
     }
 }

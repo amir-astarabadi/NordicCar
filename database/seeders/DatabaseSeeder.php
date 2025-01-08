@@ -12,8 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            OrderItemSeeder::class
-        ]);
+        if (!app()->environment('production')) {
+            $this->call([
+                OrderItemSeeder::class
+            ]);
+        }
     }
 }
